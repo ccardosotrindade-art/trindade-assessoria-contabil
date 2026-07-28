@@ -3,15 +3,30 @@ name: Deploy do Site
 on:
   push:
     branches:
-      - main  # Se a sua branch principal se chamar 'master', altere aqui para 'master'
+      - principal  # Sua branch principal se chama 'principal'
 
 jobs:
   web-deploy:
-    name: Deploy via FTP
+    name: Build e Deploy via FTP
     runs-on: ubuntu-latest
     steps:
       - name: Baixar código do repositório
         uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Instalar pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 8
+
+      - name: Instalar dependências e gerar Build
+        run: |
+          pnpm install
+          pnpm run build
 
       - name: Enviar arquivos via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
@@ -19,4 +34,4 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          # server-dir: /public_html/ # Remova o '#' no início desta linha se precisar enviar para uma pasta específica no servidor
+          local-dir: ./dist/
