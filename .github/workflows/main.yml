@@ -26,11 +26,8 @@ jobs:
       - name: Instalar dependências
         run: pnpm install
 
-      - name: Gerar arquivos do Convex
-        run: npx convex codegen
-
-      - name: Gerar Build (ignorando erros de TypeScript se houver)
-        run: pnpm run build || pnpm exec vite build
+      - name: Gerar Build do Vite
+        run: pnpm exec vite build
 
       - name: Enviar arquivos via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
