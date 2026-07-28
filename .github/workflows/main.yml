@@ -3,7 +3,7 @@ name: Deploy do Site
 on:
   push:
     branches:
-      - main
+      - main  # Se a sua branch principal for 'master', troque aqui
 
 jobs:
   web-deploy:
@@ -24,7 +24,10 @@ jobs:
           version: 8
 
       - name: Instalar dependências
-        run: pnpm install
+        run: pnpm install --no-frozen-lockfile
+
+      - name: Gerar código do Convex
+        run: npx convex codegen || true
 
       - name: Gerar Build do Vite
         run: pnpm exec vite build
