@@ -6,6 +6,7 @@ import { defineConfig } from "vite";
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: './', // Define caminhos relativos para os scripts e CSS carregarem corretamente no servidor
   server: {
     host: "0.0.0.0",
     port: 5173,
