@@ -3,7 +3,7 @@ name: Deploy do Site
 on:
   push:
     branches:
-      - principal  # Sua branch principal se chama 'principal'
+      - main # Altere para 'principal' se a sua branch principal tiver esse nome
 
 jobs:
   web-deploy:
